@@ -38,7 +38,7 @@
 %\usepackage{courier}
 
 \setbeamertemplate{navigation symbols}{}
-% \setbeamersize{text margin right=5pt}
+ \setbeamersize{text margin right=15pt, text margin left=15pt}
 \newenvironment{changemargin}[2]{% 
   \begin{list}{}{% 
     \setlength{\topsep}{0pt}% 
@@ -105,7 +105,7 @@ presented by: Petr Praus}
 \section{Use case}
 
 \begin{frame}
-\frametitle{Use case}
+\frametitle{Use Case}
 \begin{itemize}
   \item A lot of things are string sequences.
   \item Column databases store and index string sequences.
@@ -121,9 +121,10 @@ presented by: Petr Praus}
 \begin{changemargin}{-15pt}{-15pt}
 \begin{itemize}
   \item Pretty similar, huh?
-  \item I heard indexes make stuff faster $\rightarrow$ indexed sequence of strings
+  \item I heard indexes make stuff faster $\rightarrow$ \textbf{indexed sequence of strings}
   \item Rank query: Number of requests for \texttt{/img/welcome/corner.png}?
   \item Select query: Position of $i$-th occurrence of \texttt{/img/welcome/corner.png}
+  \item We can do prefix operations too
 \end{itemize}
 \end{changemargin}
 \end{frame}
@@ -147,7 +148,7 @@ presented by: Petr Praus}
 \frametitle{Wavelet Tree}
 \begin{itemize}
   \item Organizes a string into a balanced binary tree of bit vectors.
-  \item Alphabet: $\sum = \{a,b,c,d,r\} \rightarrow \{0, 0, 1, 1, 1\}$
+  \item Alphabet $\sum = \{a,b,c,d,r\} \rightarrow \{0, 0, 1, 1, 1\}$
   \item At root, we have \emph{ambiguity}, reducing ambiguity towards leaves
 \end{itemize}
 \begin{figure}
@@ -157,7 +158,7 @@ presented by: Petr Praus}
 
 
 \begin{frame}
-\frametitle{Efficient computation of rank in Wavelet Tree}
+\frametitle{Efficient Computation of Rank in Wavelet Tree}
 \begin{itemize}
   \item $rank(8, a)$ = how many a's before position 8
   \item $rank_{bin}(pos, s)$ binary rank, \# of occurences of $s$ before $pos$  
@@ -168,6 +169,35 @@ presented by: Petr Praus}
 {\small E.g.: \# of requests to \texttt{/img/welcome/corner.png} before April 10th.}
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Mutable \& Compressed Indexed Sequences}
+\begin{itemize}
+  \item Sequences can change over time:\\$Insert(s, pos)$, $Append(s)$, $Delete(pos)$
+  \item Alphabet not always known in advance 
+\end{itemize}
+\vspace{10pt}
+\begin{itemize}
+  \item Traditional approach, store explicitly (e.g. array), make an index
+  \item Space-inefficient, we want to query the compressed representation
+  \item {\bf Succint data structure} -- uses space close to lower information-theoretic bound
+\end{itemize}
+\vspace{10pt}
+\hspace{10pt}
+Wavelet Trie to rescue
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Wavelet Trie}
+\begin{itemize}
+  \item Wavelet Tree + Patricia Trie
+  \item Compressed data structure
+  \item Can support \emph{Insert}, \emph{Append}, \emph{Delete}, and dynamic alphabet
+  \item Static, Append-only, Fully-dynamic
+  \item 
+\end{itemize}
+\end{frame}
 
 %\begin{frame}
 %\frametitle{Outline}
