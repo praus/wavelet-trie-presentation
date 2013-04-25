@@ -1,0 +1,6 @@
+.project
+*.synctex.gz
+/tmp/
+*.log
+*.aux
+*.out
