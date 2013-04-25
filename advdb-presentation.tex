@@ -50,7 +50,6 @@
   }% 
   \item[]}{\end{list}} 
 
-%\title{Playing with Stack Overflow data dump}
 \title[The Wavelet Trie]{The Wavelet Trie: Maintaining an Indexed Sequence of
 Strings in Compressed Space}
 
@@ -195,8 +194,31 @@ Wavelet Trie to rescue
   \item Compressed data structure
   \item Can support \emph{Insert}, \emph{Append}, \emph{Delete}, and dynamic alphabet
   \item Static, Append-only, Fully-dynamic
-  \item 
+  \item Note: $O(|s|+h_s)$ 
 \end{itemize}
+
+\begin{table}[h]
+    \centering
+    \ra{1.3}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{@{}lccccc@{}}
+    %\toprule
+                    & Query & Append & Insert & Delete  & Space \\
+    \midrule
+    Static          & $O(|s|+h_s)$ & --      & --      & --       & $LB+o(\tilde{h}n)$ \\
+    Append-only     & $O(|s|+h_s)$ & $O(|s|+h_s)$  &   --    & --      & $LB+PT+o(\tilde{h}n)$ \\
+    Fully-dynamic   & $O(|s|+h_s \log n)$ & $O(|s|+h_s \log n)$ & $O(|s|+h_s \log n)$ & $O(|s|+h_s \log n)$ & $LB+PT+O(nH_0)$ \\
+    \bottomrule
+    \end{tabular}
+    }
+    %\caption{Number of edges matching ground truth}
+    %\label{t:edge_analysis}
+\end{table}
+{\small
+$h_s$ -- number of nodes traversed while searching for $s$ is Patricia Tree\\
+$\tilde{h}$ -- average height of the Wavelet Trie\\
+$|s|$ -- length of query string
+}
 \end{frame}
 
 %\begin{frame}
