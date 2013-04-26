@@ -134,8 +134,9 @@ presented by: Petr Praus}
 \begin{frame}
 \frametitle{Patricia Trie}
 \begin{itemize}
+  \item {\bf Trie} is ordered tree data structure used to store a \emph{dynamic set}
   \item Space-efficient trie.
-  \item Node has always has at least two children.
+  \item Node always has at least two children.
 \end{itemize}
 \begin{figure}
 \scalebox{1.0}{\includegraphics{Patricia_trie.pdf}}
@@ -149,6 +150,7 @@ presented by: Petr Praus}
   \item Organizes a string into a balanced binary tree of bit vectors.
   \item Alphabet $\sum = \{a,b,c,d,r\} \rightarrow \{0, 0, 1, 1, 1\}$
   \item At root, we have \emph{ambiguity}, reducing ambiguity towards leaves
+  \item Only the binary vectors are stored!
 \end{itemize}
 \begin{figure}
 \scalebox{0.75}{\includegraphics{Wavelet_tree.png}}
@@ -183,7 +185,7 @@ presented by: Petr Praus}
 \end{itemize}
 \vspace{10pt}
 \hspace{10pt}
-Wavelet Trie to rescue
+Wavelet Trie to rescue!
 \end{frame}
 
 
@@ -193,10 +195,9 @@ Wavelet Trie to rescue
   \item Wavelet Tree + Patricia Trie
   \item Compressed data structure
   \item Can support \emph{Insert}, \emph{Append}, \emph{Delete}, and dynamic alphabet
-  \item Static, Append-only, Fully-dynamic
-  \item Note: $O(|s|+h_s)$ 
+  \item Variants: Static, Append-only, Fully-dynamic
+  \item Note $O(|s|+h_s)$ is very fast for balanced trees
 \end{itemize}
-
 \begin{table}[h]
     \centering
     \ra{1.3}
@@ -211,241 +212,71 @@ Wavelet Trie to rescue
     \bottomrule
     \end{tabular}
     }
-    %\caption{Number of edges matching ground truth}
-    %\label{t:edge_analysis}
 \end{table}
 {\small
 $h_s$ -- number of nodes traversed while searching for $s$ is Patricia Tree\\
 $\tilde{h}$ -- average height of the Wavelet Trie\\
-$|s|$ -- length of query string
+$|s|$ -- length of query string\\
+$LB$ -- lower bound on storing the unique elements of a sequence 
 }
 \end{frame}
 
-%\begin{frame}
-%\frametitle{Outline}
-%\tableofcontents
-% You might wish to add the option [pausesections]
-%\end{frame}
 
-% \section{Data set}
-% 
-% \begin{frame}
-% \frametitle{Data set}
-% \begin{itemize}
-%   \item Stack Exchange, Inc. periodically releasing dump of their data
-%   \item Stack Overflow ($\approx$ 6GB), SuperUser, TeX, \ldots
-%   \item Structured XML or custom-made Data Explorer
-% \end{itemize}
-% \begin{figure}
-% \scalebox{.23}{\includegraphics{data_explorer}}
-% \end{figure}
-% \end{frame}
-% 
-% 
-% \section{Prediction Task}
-% %\subsection[Short First Subsection Name]{First Subsection Name}
-% 
-% \begin{frame}
-% \frametitle{Tasks}
-% \begin{block}{Asker Satisfaction Problem (related work)}
-% Given a question submitted by an asker, predict whether the user will be
-% satisfied with the answers contributed by the community.
-% \end{block}
-% \vspace{1em}
-% \begin{itemize}
-%   \item Lots of unanswered questions (50\% on Super User, 36\% SO)
-%   \item First predict IF the question gets answered
-%   \item Then predict WHEN the question gets answered
-% \end{itemize}
-% \begin{itemize}
-%   \item Satisfactory answer = accepted answer
-%   \item Good data (accepted answers, time, tags, post content, \ldots)
-%   \item Surprisingly different tasks
-% \end{itemize}
-% \end{frame}
-% 
-% 
-% \begin{frame}
-% \frametitle{Techniques used}
-% \begin{itemize}
-%   \item Support Vector Machine for classification tasks
-%   \item Support Vector Regression for regression tasks
-%   \item Framework: Shogun Toolbox (Octave/Matlab, Python, \ldots)
-%   \item Scaling ([0,1], SVM/Kernel can otherwise break)
-%   \item Hold-out set for validation
-% \end{itemize}
-% \end{frame}
-% 
-% 
-% %-------------------------------------------------------------------------------
-% \section{Predicting IF the question gets answered}
-% %-------------------------------------------------------------------------------
-% 
-% \begin{frame}
-% \frametitle{IF Prediction}
-% \framesubtitle{Will the question get answered at all?}
-% \begin{itemize}
-%   \item Binary classification problem
-%   \item SVM is a go-to choice
-%   \item Other options: kNN, Gaussian Naive Bayes
-% \end{itemize}
-% \vspace{1em}
-% {\bf Selecting Features}
-% \begin{itemize}
-%   \item Asker's reputation, acceptance rate, and membership length
-%   \item Visual quality of the question (Wh-words, \ldots)
-%   \item Question tags
-%   \item Question text body $\rightarrow$ NLP?
-% \end{itemize}
-% \end{frame}
-% 
-% 
-% \begin{frame}
-% \frametitle{IF Prediction: Validation Results - Super User}
-% %\framesubtitle{}
-% \begin{table}[t]
-%     \centering
-%     \ra{1.1}
-%     \begin{tabular}{@{}lcc@{}} \toprule
-%                      & Real positive & Real negative \\
-%     \midrule
-%     Predict positive & 1344           & 240 \\
-%     Predict negative & 756           & 659 \\  
-%     \bottomrule
-%     \end{tabular}
-%     %\caption{Number of edges matching ground truth}
-%     %\label{t:edge_analysis}
-% \end{table}
-% \begin{itemize}
-%   \item Super User data set (15000 randomly selected questions)
-%   \item Test set: 2999 examples
-%   \item 50 \% questions is unanswered!
-%   \item Precision: 85\%
-%   \item Recall: 64\%
-%   \item Accuracy: 67\%
-%   \item Features: Reputation, Acceptance Rate
-%   \item ``Membership length'' makes things worse!
-%   \item Results are better than predicting always True (baseline)
-% \end{itemize}
-% \end{frame}
-% 
-% 
-% \begin{frame}
-% \frametitle{IF Prediction: Visualization of SVM predictions}
-% %\framesubtitle{}
-% \begin{figure}
-% \centering
-% \scalebox{.5}{\includegraphics{svm_nice_separation}}
-% %\caption{Visualization of SVM predictions}
-% \end{figure}
-% \begin{center}
-% Red dot -- unanswered question, Green dot -- answered question
-% \end{center}
-% \end{frame}
-% 
-% 
-% \begin{frame}
-% \frametitle{IF Prediction: Validation Results - \TeX}
-% %\framesubtitle{}
-% \begin{table}[t]
-%     \centering
-%     \ra{1.1}
-%     \begin{tabular}{@{}lcc@{}} \toprule
-%                      & Real positive & Real negative \\
-%     \midrule
-%     Predict positive & 1838           & 184 \\
-%     Predict negative & 369           & 188 \\  
-%     \bottomrule
-%     \end{tabular}
-%     %\caption{Number of edges matching ground truth}
-%     %\label{t:edge_analysis}
-% \end{table}
-% \begin{itemize}
-%   \item TeX data set (12895 questions, 20\% withheld for validation)
-%   \item Test set: 2579 examples
-%   \item Precision: 92\%
-%   \item Recall: 83\%
-%   \item Accuracy: 79\%
-%   \item Same features
-%   \item Just 10 \% questions is unanswered
-% \end{itemize}
-% \end{frame}
-% 
-% 
-% 
-% 
-% %-------------------------------------------------------------------------------
-% \section{Predicting WHEN the question gets answered}
-% %-------------------------------------------------------------------------------
-% \begin{frame}
-% \frametitle{WHEN Prediction}
-% \framesubtitle{When we will get a satisfactory answer?}
-% \begin{itemize}
-%   \item Turns out to be much harder
-%   \item Features should represent how appealing the question is to experts --
-%   too hard
-%   \item Notion of time might help
-% \end{itemize}
-% \begin{figure}
-% \scalebox{.26}{\includegraphics{su-multiclass-scatter}}
-% \end{figure}
-% 
-% \end{frame}
-% 
-% 
-% \begin{frame}
-% \frametitle{Time to answer vs. Time of day}
-% \framesubtitle{How long it takes to answer a question depending on time of day}
-% \begin{figure}
-% \scalebox{.5}{\includegraphics{tex-answertime-timeofday}}
-% \end{figure}
-% \end{frame}
-% 
-% 
-% \begin{frame}
-% \frametitle{When are questions asked?}
-% \begin{figure}
-% \scalebox{.45}{\includegraphics{tex-hist-timeofday}}
-% \end{figure}
-% \end{frame}
-% 
-% 
-% \begin{frame}
-% \frametitle{WHEN Prediction: Validation Results - \TeX}
-% \begin{itemize}
-%   \item Same $\TeX$ data set
-%   \item New feature: time of day (hour)
-%   \item Median error: 22 minutes
-%   \item Mean error: 51 minutes
-%   \item Standard deviation of error: 68 minutes!
-%   \item Way too much noise for something really accurate
-% \end{itemize}
-% {\bf Other features}
-% \begin{itemize}
-%   \item Question tags
-%   \item Question text body $\rightarrow$ NLP?
-% \end{itemize}
-% \end{frame}
-% 
-% 
-% 
-% \begin{frame}
-% \frametitle{Summary}
-% \begin{itemize}
-%   \item Freely available, up to date, large data set
-%   \item Predicting IF the question gets answered is possible,\\
-%         but only for sites with lay users
-%   \item Meaningfully predicting WHEN the question gets answered is much harder,
-%         data are extremely noisy
-%   \item Possible approach to WHEN: track expert users and topics they answer
-%   (some NLP needed) and match them with questions (again NLP)
-%   \item \emph{Algorithm should be aware of question type.}  
-% \end{itemize}
-% \end{frame}
+\begin{frame}
+\frametitle{Wavelet Trie - Example (Static)}
+\begin{itemize}
+  \item $\sum = \{0001, 0011, 0100, 00100\}$, $\alpha$ common prefix, $\beta$ bit-vector
+  \item Splitting based on common prefix like in Patricia Trie, not halving an alphabet like in Wavelet Tree!
+\end{itemize}
+\begin{figure}[b!]
+\scalebox{1.0}{\includegraphics{Wavelet_Trie_example.pdf}}
+\end{figure}
+\end{frame}
 
 
 \begin{frame}
+\frametitle{Wavelet Trie - Example (Static)}
+\begin{itemize}
+  \item $Rank(6, 0{\bf 1}00) \rightarrow Rank(6, 1) = 2$
+  \item Notice how ambiguity decreases towards the leaves
+\end{itemize}
+\begin{figure}[b]
+\scalebox{1.0}{\includegraphics{Wavelet_Trie_example.pdf}}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Dynamic Wavelet Tries}
+\begin{itemize}
+  \item Bitvectors must support insertion and deletion
+  \item We also want dynamic alphabet, e.g. we want to add ``0111'' 
+\end{itemize}
+\begin{figure}[b]
+\scalebox{0.9}{\includegraphics{Wavelet_Trie_insert.pdf}}
+\end{figure}
+Inserting new $s = \ldots\gamma 1 \lambda$ at $pos=3$; $\gamma$ -- common prefix, $\lambda$ -- suffix
+\begin{enumerate}
+  \item Original Wavelet Trie
+  \item After splitting red node, adding internal node and leaf node (green)
+  \item Inserting bits in the root-to-leaf path nodes
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
 \frametitle{Summary}
+\begin{itemize}
+  \item Wavelet Trie = Wavelet Tree + Patricia Trie
+  \item Compressed sequences of strings
+  \item Very space efficient (no need for data+index)
+  \item Applications in column databases, access log aggregation, \ldots
+  \item Quite fast, querying in $O(|s|+h_s)$
+  \item Can support prefix searches
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
 \begin{center}
 \large \bf Thank you.
 \end{center}
@@ -454,7 +285,10 @@ $|s|$ -- length of query string
 \begin{frame}
 \frametitle{Resources}
 \begin{itemize}
+  \item Grossi, Roberto, and Giuseppe Ottaviano. ``The wavelet trie: Maintaining an indexed sequence of strings in compressed space.'' In Proceedings of the 31st symposium on Principles of Database Systems, pp. 203-214. ACM, 2012.
   \item \url{http://alexbowe.com/wavelet-trees/}
+  \item \url{http://en.wikipedia.org/wiki/Wavelet_Tree}
+  \item \url{http://siganakis.com/challenge-design-a-data-structure-thats-small}
 \end{itemize}
 \end{frame}
  
