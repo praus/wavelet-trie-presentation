@@ -38,6 +38,7 @@
 %\usepackage{courier}
 
 \setbeamertemplate{navigation symbols}{}
+
  \setbeamersize{text margin right=15pt, text margin left=15pt}
 \newenvironment{changemargin}[2]{% 
   \begin{list}{}{% 
@@ -97,18 +98,14 @@ presented by: Petr Praus}
 
 \begin{document}
 
-\begin{frame}
-\titlepage
-\end{frame}
-
-\section{Use case}
+\section{Problem}
 
 \begin{frame}
-\frametitle{Use Case}
+\frametitle{Problem}
 \begin{itemize}
-  \item A lot of things are string sequences.
-  \item Column databases store and index string sequences.
-  \item Great example: access logs
+  \item A lot of things are string sequences
+  \item Column databases store and index string sequences
+  \item {\bf Great example: access logs}
 \end{itemize}
 \vspace{10pt}
 {\scriptsize
@@ -119,13 +116,17 @@ presented by: Petr Praus}
 \vspace{10pt}
 \begin{changemargin}{-15pt}{-15pt}
 \begin{itemize}
-  \item Pretty similar, huh?
+  \item Pretty similar, right?
   \item I heard indexes make stuff faster $\rightarrow$ \textbf{indexed sequence of strings}
   \item Rank query: Number of requests for \texttt{/img/welcome/corner.png}?
   \item Select query: Position of $i$-th occurrence of \texttt{/img/welcome/corner.png}
   \item We can do prefix operations too
 \end{itemize}
 \end{changemargin}
+\end{frame}
+
+\begin{frame}
+\titlepage
 \end{frame}
 
 
@@ -135,8 +136,8 @@ presented by: Petr Praus}
 \frametitle{Patricia Trie}
 \begin{itemize}
   \item {\bf Trie} is ordered tree data structure used to store a \emph{dynamic set}
-  \item Space-efficient trie.
-  \item Node always has at least two children.
+  \item Space-efficient trie
+  \item Node always has at least two children
 \end{itemize}
 \begin{figure}
 \scalebox{1.0}{\includegraphics{Patricia_trie.pdf}}
@@ -147,7 +148,7 @@ presented by: Petr Praus}
 \begin{frame}
 \frametitle{Wavelet Tree}
 \begin{itemize}
-  \item Organizes a string into a balanced binary tree of bit vectors.
+  \item Organizes a string into a balanced binary tree of bit vectors
   \item Alphabet $\sum = \{a,b,c,d,r\} \rightarrow \{0, 0, 1, 1, 1\}$
   \item At root, we have \emph{ambiguity}, reducing ambiguity towards leaves
   \item Only the binary vectors are stored!
